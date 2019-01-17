@@ -1,0 +1,18 @@
+version: '2'
+services:
+  scarlett:
+    build: ../../containers/phplaravel
+    ports:
+      - "8081:80"
+    volumes:
+      - /home/febef/Init/ciinfra/proyects/scarlett/:/app
+    links:
+      - mysql57-2
+  mysql57-2:
+    build: ../../containers/mysql
+    ports:
+      - "3309:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=toor
+    volumes:
+      - /home/febef/Documentos/dockers/volumens/mysql57_scarlett:/var/lib/mysql
