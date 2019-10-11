@@ -1,0 +1,23 @@
+version: '3'
+services:
+  sonarqube:
+    build: ../../containers/sonarqube
+    ports:
+      - "9000:9000"
+      - "9092:9092"
+    volumes:
+      - ../../volumes/sonarqube/data:/opt/sonarqube/data
+      - ../../volumes/sonarqube/extensions:/opt/sonarqube/extensions
+  jenkins:
+    build: ../../containers/jenkins
+    privileged: true
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - ../../volumes/jenkins/:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - sonarqube
+
